@@ -33,7 +33,7 @@ def main():
           y=df["Weight"], 
           hue=df["NObeyesdad"], 
           palette="Set1", 
-          s=100,  # Circle size
+          s=50,  # Circle size
           edgecolor=None,  # No border on circles
           ax=ax
       )
