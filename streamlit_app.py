@@ -11,7 +11,7 @@ def predict_with_model(model, user_input):
 
 def main():
   st.title('Machine Learning App')  
-  st.info('This app using machine learning')
+  st.info('This app will predict your obesity level!')
 
 if __name__ == "__main__":
   main()
