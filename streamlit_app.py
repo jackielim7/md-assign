@@ -13,7 +13,7 @@ def predict_with_model(model, user_input):
 def main():
   st.title('Machine Learning App')  
   st.info('This app will predict your obesity level!')
-  pd.read_csv("https://github.com/jackielim7/md-assign/blob/master/ObesityDataSet_raw_and_data_sinthetic.csv")
+  df = pd.read_csv("https://github.com/jackielim7/md-assign/blob/master/ObesityDataSet_raw_and_data_sinthetic.csv")
   
   st.subheader("📊 Data")
   st.write("**Description:** This is a raw data")
