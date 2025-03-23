@@ -15,9 +15,10 @@ def main():
   st.info('This app will predict your obesity level!')
   df = pd.read_csv("https://raw.githubusercontent.com/jackielim7/md-assign/master/ObesityDataSet_raw_and_data_sinthetic.csv")
   
-  st.subheader("📊 Data")
-  st.write("**Description:** This is a raw data")
-  st.dataframe(df)
+  st.subheader("Data : ")
+  with st.expander("Click to expand/minimize"):
+      st.write("This is a raw data")
+      st.dataframe(df)
 
 if __name__ == "__main__":
   main()
