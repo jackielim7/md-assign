@@ -56,8 +56,7 @@ def main():
                        x="Height", 
                        y="Weight", 
                        color="NObeyesdad",
-                       title="Height vs Weight",
-                       labels={"Height": "Height (m)", "Weight": "Weight (kg)"},
+                       labels={"Height": "Height", "Weight": "Weight"},
                        template="plotly_white")
 
       # Set X-axis ticks every 0.1
