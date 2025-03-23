@@ -29,9 +29,9 @@ def main():
   
       # Create scatter plot
       scatter = sns.scatterplot(
-          x=df[Height], 
-          y=df[Weight], 
-          hue=df[NObeyesdad], 
+          x=df["Height"], 
+          y=df["Weight"], 
+          hue=df["NObeyesdad"], 
           palette="Set2", 
           s=200,  # Circle size
           edgecolor=None,  # No border on circles
@@ -39,11 +39,11 @@ def main():
       )
   
       # Set axes to start from (0,0)
-      ax.set_xlim(0, df[Height].max() + 1)
-      ax.set_ylim(0, df[Weight].max() + 1)
+      ax.set_xlim(0, df["Height"].max() + 1)
+      ax.set_ylim(0, df["Weight"].max() + 1)
   
       # Move legend below the plot with no border
-      legend = ax.legend(title=hue_column, bbox_to_anchor=(0.5, -0.1), loc="upper center", frameon=False, ncol=2)
+      legend = ax.legend(title="NObeyesdad", bbox_to_anchor=(0.5, -0.1), loc="upper center", frameon=False, ncol=2)
   
       # Display plot in Streamlit
       st.pyplot(fig)
