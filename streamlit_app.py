@@ -1,5 +1,15 @@
 import streamlit as st
+import joblib #buat import pickle
 
-st.title('🎈 App Name')
+def load_model(filename):
+  model = joblib.load(filename)
+  return model
 
-st.write('Hello world!')
+def predict_with_model(model, user_input):
+  prediction = model.predict([user_input])
+  return prediction[0]
+
+def main():
+  st.title('Machine Learning App')  
+  st.info('This app using machine learning')
+
