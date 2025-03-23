@@ -44,7 +44,7 @@ def main():
       ax.set_ylim(0, 180)
   
       # Move legend below the plot with no border
-      legend = ax.legend(title="NObeyesdad", bbox_to_anchor=(0.5, -0.1), loc="upper left", frameon=False, ncol=2)
+      legend = ax.legend(title="NObeyesdad", bbox_to_anchor=(0.5, -0.1), loc="upper right", frameon=False, ncol=2)
   
       # Display plot in Streamlit
       st.pyplot(fig)
