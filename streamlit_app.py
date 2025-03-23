@@ -25,7 +25,7 @@ def main():
 
   with st.expander("**Data Visualization**"):
       # Matplotlib figure
-      fig, ax = plt.subplots(figsize=(8, 6))
+      fig, ax = plt.subplots(figsize=(8  , 6))
   
       # Create scatter plot
       scatter = sns.scatterplot(
@@ -33,13 +33,13 @@ def main():
           y=df["Weight"], 
           hue=df["NObeyesdad"], 
           palette="Set2", 
-          s=200,  # Circle size
+          s=100,  # Circle size
           edgecolor=None,  # No border on circles
           ax=ax
       )
   
       # Set axes to start from (0,0)
-      ax.set_xlim(0, df["Height"].max() + 1)
+      ax.set_xlim(0, 180)
       ax.set_ylim(0, df["Weight"].max() + 1)
   
       # Move legend below the plot with no border
