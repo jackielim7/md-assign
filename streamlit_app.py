@@ -23,34 +23,30 @@ def main():
       st.write("This is a raw data")
       st.dataframe(df)
 
-  with st.expander("Click to expand/minimize"):
-      st.write("### Scatter Plot of Height vs. Weight by Obesity Level")
-          # Create scatter plot
-      fig, ax = plt.subplots(figsize=(8, 5))
+  with st.expander("**Data Visualization**"):
+      # Matplotlib figure
+      fig, ax = plt.subplots(figsize=(8, 6))
+  
+      # Create scatter plot
       scatter = sns.scatterplot(
-        data=df, 
-        x="Height", 
-        y="Weight", 
-        hue="NObeyesdad", 
-        palette="Set2", 
-        s=100, 
-        edgecolor="black"
+          x=df[Height], 
+          y=df[Weight], 
+          hue=df[NObeyesdad], 
+          palette="Set2", 
+          s=200,  # Circle size
+          edgecolor=None,  # No border on circles
+          ax=ax
       )
-      # Improve legend placement
-      legend = plt.legend(
-        title="NObeyesdad",
-        bbox_to_anchor=(1.05, 1), 
-        loc='upper left', 
-        borderaxespad=0
-      )
-          
-      # Set labels & title
-      plt.xlabel("Height")
-      plt.ylabel("Weight")
-      plt.title("Data Visualization", fontsize=12, fontweight="bold")
-
-    # Show plot in Streamlit
-  st.pyplot(fig)
+  
+      # Set axes to start from (0,0)
+      ax.set_xlim(0, df[x_column].max() + 1)
+      ax.set_ylim(0, df[y_column].max() + 1)
+  
+      # Move legend below the plot with no border
+      legend = ax.legend(title=hue_column, bbox_to_anchor=(0.5, -0.1), loc="upper center", frameon=False, ncol=2)
+  
+      # Display plot in Streamlit
+      st.pyplot(fig)
   
 if __name__ == "__main__":
   main()
