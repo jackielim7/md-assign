@@ -13,12 +13,16 @@ def predict_with_model(model, user_input):
 def main():
   st.title('Machine Learning App')  
   st.info('This app will predict your obesity level!')
+
+  #Read data
   df = pd.read_csv("https://raw.githubusercontent.com/jackielim7/md-assign/master/ObesityDataSet_raw_and_data_sinthetic.csv")
   
+  #Expand buat bagian raw data
   with st.expander("**Data :**"):
       st.write("This is a raw data")
       st.dataframe(df)
 
+  
 if __name__ == "__main__":
   main()
 
