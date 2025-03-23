@@ -23,25 +23,35 @@ def main():
       st.write("This is a raw data")
       st.dataframe(df)
 
-  with st.expander("**Data Visualization**"):
-      st.write("### Scatter Plot of Height vs. Weight by Obesity Level")
-      
-      # Create the scatter plot
-      fig, ax = plt.subplots(figsize=(8, 5))
-      sns.scatterplot(
-            data=df, 
-            x="Height", 
-            y="Weight", 
-            hue="NObeyesdad", 
-            palette="Set2", 
-            s=100, 
-            edgecolor="black"
-        )
-      plt.xlabel("Height")
-      plt.ylabel("Weight")
-      plt.title("Height vs. Weight Scatter Plot")
+    st.subheader("📈 Data Visualization")
+  with st.expander("Click to expand/minimize"):
+    st.write("### Scatter Plot of Height vs. Weight by Obesity Level")
+        # Create scatter plot
+    fig, ax = plt.subplots(figsize=(8, 5))
+    scatter = sns.scatterplot(
+      data=df, 
+      x="Height", 
+      y="Weight", 
+      hue="NObeyesdad", 
+      palette="Set2", 
+      s=100, 
+      edgecolor="black"
+    )
+    # Improve legend placement
+    legend = plt.legend(
+      title="NObeyesdad",
+      bbox_to_anchor=(1.05, 1), 
+      loc='upper left', 
+      borderaxespad=0
+    )
+        
+    # Set labels & title
+    plt.xlabel("Height")
+    plt.ylabel("Weight")
+    plt.title("Data Visualization", fontsize=12, fontweight="bold")
 
-      st.pyplot(fig)
+    # Show plot in Streamlit
+  st.pyplot(fig)
   
 if __name__ == "__main__":
   main()
