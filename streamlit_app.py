@@ -50,23 +50,30 @@ def main():
   #     st.pyplot(fig)
 
   with st.expander("**Data Visualization**"):
-    # Create interactive scatter plot
-      fig = px.scatter(
-          df, 
-          x="Height", 
-          y="Weight", 
-          color="NObeyesdad", 
-          title="Height vs Weight",
-          labels={"Height": "Height (m)", "Weight": "Weight (kg)"},
-          opacity=0.7,
-      )
+      # Create an interactive scatter plot
+      fig = px.scatter(df, 
+                       x="Height", 
+                       y="Weight", 
+                       color="NObeyesdad",
+                       title="Height vs Weight",
+                       labels={"Height": "Height (m)", "Weight": "Weight (kg)"},
+                       template="plotly_white")
 
-      # Set X-axis range
-      fig.update_xaxes(range=[0, 2], dtick=0.1)
-      fig.update_yaxes(range=[0, 180])
+      # Set X-axis labels to be **horizontal**
+      fig.update_xaxes(tickangle=0)
 
-      # Show plot
-      st.plotly_chart(fig, use_container_width=True)
+      # Move legend **below** the plot
+      fig.update_layout(legend=dict(
+          orientation="h",  # Horizontal legend
+          yanchor="top", 
+          y=-0.2,  # Move it below the plot
+          xanchor="center", 
+          x=0.5
+      ))
+
+      # Show the interactive plot
+      st.plotly_chart(fig)
+
     
 if __name__ == "__main__":
   main()
