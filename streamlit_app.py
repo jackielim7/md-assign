@@ -39,7 +39,7 @@ def main():
       )
   
       # Set axes to start from (0,0)
-      ax.set_xlim(0, df["Height"].max() + 1)
+      ax.set_xlim(0, 2)
       ax.set_ylim(0, 180)
   
       # Move legend below the plot with no border
