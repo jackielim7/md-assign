@@ -59,8 +59,8 @@ def main():
                        labels={"Height": "Height", "Weight": "Weight"},
                        template="plotly_white")
 
-      fig.update_xaxes(range=[0, 2], dtick=0.1, tickangle=0)
-      fig.update_yaxes(range=[0, 180])
+      fig.update_xaxes(range=[0, 2.1], dtick=0.1, tickangle=0)
+      fig.update_yaxes(range=[0, 200])
 
       # Move legend below the plot
       fig.update_layout(legend=dict(
