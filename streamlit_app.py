@@ -1,6 +1,7 @@
 import streamlit as st
-import joblib #buat import pickle
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 def load_model(filename):
   model = joblib.load(filename)
@@ -18,10 +19,29 @@ def main():
   df = pd.read_csv("https://raw.githubusercontent.com/jackielim7/md-assign/master/ObesityDataSet_raw_and_data_sinthetic.csv")
   
   #Expand buat bagian raw data
-  with st.expander("**Data :**"):
+  with st.expander("**Data**"):
       st.write("This is a raw data")
       st.dataframe(df)
 
+  with st.expander("**Data Visualization**"):
+      st.write("### Scatter Plot of Height vs. Weight by Obesity Level")
+      
+      # Create the scatter plot
+      fig, ax = plt.subplots(figsize=(8, 5))
+      sns.scatterplot(
+            data=df, 
+            x="Height", 
+            y="Weight", 
+            hue="NObeyesdad", 
+            palette="Set2", 
+            s=100, 
+            edgecolor="black"
+        )
+      plt.xlabel("Height")
+      plt.ylabel("Weight")
+      plt.title("Height vs. Weight Scatter Plot")
+
+      st.pyplot(fig)
   
 if __name__ == "__main__":
   main()
