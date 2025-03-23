@@ -25,7 +25,7 @@ def main():
 
   with st.expander("**Data Visualization**"):
       # Matplotlib figure
-      fig, ax = plt.subplots(figsize=(8  , 6))
+      fig, ax = plt.subplots(figsize=(6  , 10))
   
       # Create scatter plot
       scatter = sns.scatterplot(
