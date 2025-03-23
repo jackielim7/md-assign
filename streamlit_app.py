@@ -59,18 +59,8 @@ def main():
                        labels={"Height": "Height", "Weight": "Weight"},
                        template="plotly_white")
 
-      # Set X-axis ticks every 0.1
-      fig.update_xaxes(
-          tick0=0,  # Start at 0
-          dtick=0.1,  # Interval of 0.1
-          tickangle=0  # Keep labels horizontal
-      )
-
-      # Set Y-axis ticks every 20
-      fig.update_yaxes(
-          tick0=0,  # Start at 0
-          dtick=20  # Interval of 20
-      )
+      fig.update_xaxes(range=[0, 2], dtick=0.1, tickangle=0)
+      fig.update_yaxes(range=[0, 180])
 
       # Move legend below the plot
       fig.update_layout(legend=dict(
