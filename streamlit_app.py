@@ -48,22 +48,23 @@ def main():
       # Show the interactive plot
       st.plotly_chart(fig)
 
-  Gender = st.selectbox('Gender', ('Male', 'Female'))
-  Age = st.slider('Age', min_value = 1, max_value = 70, value = 14)
-  Height = st.slider('Height (meters)', min_value = 1, max_value = 3, value = 1)
-  Weight = st.slider('Weight (kilograms)', min_value = 1, max_value = 3, value = 1)
+  Gender = st.selectbox('Gender', ('Male', 'Female')) 
+  Age = st.number_input('Age', min_value=1, max_value=70, value=14)  # ✅ Allow typing
+  Height = st.number_input('Height (meters)', min_value=1.0, max_value=3.0, value=1.0, step=0.01)  # ✅ Allow decimals
+  Weight = st.number_input('Weight (kilograms)', min_value=1.0, max_value=200.0, value=1.0, step=0.1)  # ✅ Allow decimals
   family_history_with_overweight = st.selectbox('family_history_with_overweight', ('yes', 'no'))
   FAVC = st.selectbox('FAVC', ('yes', 'no'))
-  FCVC = st.slider('FCVC', min_value = 1, max_value = 3, value = 1)
-  NCP = st.slider('NCP', min_value = 1, max_value = 4, value = 1)
+  FCVC = st.number_input('FCVC', min_value=1, max_value=3, value=1)
+  NCP = st.number_input('NCP', min_value=1, max_value=4, value=1)
   CAEC = st.selectbox('CAEC', ('Always', 'Frequently', 'Sometimes', 'no'))
   SMOKE = st.selectbox('SMOKE', ('yes', 'no'))
-  CH2O = st.slider('CH2O', min_value = 1, max_value = 3, value = 1)
-  SCC =  st.selectbox('SCC', ('yes', 'no'))
-  FAF =  st.slider('FAF', min_value = 1, max_value = 3, value = 1)
-  TUE =  st.slider('TUE', min_value = 1, max_value = 2, value = 1)
-  CALC =  st.selectbox('CALC', ('Always', 'Frequently', 'Sometimes', 'no'))
-  MTRANS =  st.selectbox('MTRANS', ('Public_Transportation', 'Automobile', 'Walking', 'Motorbike', 'Bike'))
+  CH2O = st.number_input('CH2O', min_value=1, max_value=3, value=1)
+  SCC = st.selectbox('SCC', ('yes', 'no'))
+  FAF = st.number_input('FAF', min_value=1, max_value=3, value=1)
+  TUE = st.number_input('TUE', min_value=1, max_value=2, value=1)
+  CALC = st.selectbox('CALC', ('Always', 'Frequently', 'Sometimes', 'no'))
+  MTRANS = st.selectbox('MTRANS', ('Public_Transportation', 'Automobile', 'Walking', 'Motorbike', 'Bike'))
+
 
 if __name__ == "__main__":
   main()
