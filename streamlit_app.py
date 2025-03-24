@@ -8,9 +8,8 @@ def load_model(filename):
   model = joblib.load(filename)
   return model
 
-# Prediction Function
 def predict_with_model(model, user_input):
-  probabilities = model.predict_proba([user_input])  # Predict probabilities for all classes
+  probabilities = model.predict_proba([user_input]) #predict semua kemungkinan
   return probabilities
 
 def main():
@@ -25,9 +24,9 @@ def main():
       st.write("This is a raw data")
       st.dataframe(df)
 
-  # Expand for visualization
+  #Expand buat bagian visualisasi
   with st.expander("**Data Visualization**"):
-      # Create an interactive scatter plot
+      #Interactive scatter plot
       fig = px.scatter(df, 
                        x="Height", 
                        y="Weight", 
@@ -38,22 +37,25 @@ def main():
       fig.update_xaxes(range=[0, 2.1], dtick=0.1, tickangle=0)
       fig.update_yaxes(range=[0, 180], dtick=20)
 
-      # Move legend below the plot
+      #Pindahin legend ke bawah plot
       fig.update_layout(legend=dict(
-          orientation="h",  # Horizontal legend
+          orientation="h",  #Angkanya horizontal
           yanchor="top", 
-          y=-0.2,  # Move it below the plot
+          y=-0.2,  #Ditaro dibawah plot
           xanchor="center", 
           x=0.5
       ))
 
-      # Show the interactive plot
+      #Munculin plotnya
       st.plotly_chart(fig)
 
+  #st.number_input biar orang bisa ketik + ada koma (kalau slider ada koma agak sulit untuk user)
+  #st.slider buat slider angka
+  #st.selectbox buat pilih category
   Gender = st.selectbox('Gender', ('Male', 'Female')) 
-  Age = st.slider('Age', min_value = 1, max_value = 80, value = 1)  # ✅ Allow typing
-  Height = st.number_input('Height (meters)', min_value=1.0, max_value=3.0, value=1.0, step=0.01)  # ✅ Allow decimals
-  Weight = st.number_input('Weight (kilograms)', min_value=1.0, max_value=200.0, value=1.0, step=0.1)  # ✅ Allow decimals
+  Age = st.slider('Age', min_value = 1, max_value = 80, value = 1)
+  Height = st.number_input('Height (meters)', min_value=1.0, max_value=3.0, value=1.0, step=0.01) 
+  Weight = st.number_input('Weight (kilograms)', min_value=1.0, max_value=200.0, value=1.0, step=0.1)
   family_history_with_overweight = st.selectbox('family_history_with_overweight', ('yes', 'no'))
   FAVC = st.selectbox('FAVC', ('yes', 'no'))
   FCVC = st.number_input('FCVC', min_value=1.0, max_value=3.0, value=1.0, step=0.1) 
@@ -67,18 +69,19 @@ def main():
   CALC = st.selectbox('CALC', ('Always', 'Frequently', 'Sometimes', 'no'))
   MTRANS = st.selectbox('MTRANS', ('Public_Transportation', 'Automobile', 'Walking', 'Motorbike', 'Bike'))
 
- # **Encode categorical variables**
+ #Encode categorical
   gender_map = {'Male': 0, 'Female': 1}
   binary_map = {'no': 0, 'yes': 1}
   caec_map = {'no': 0, 'Sometimes': 1, 'Frequently': 2, 'Always': 3}
   calc_map = {'no': 0, 'Sometimes': 1, 'Frequently': 2, 'Always': 3}
 
-  # **One-Hot Encoding for MTRANS (Matching Model's Encoding)**
+  #OHE
   mtrans_categories = ['MTRANS_Automobile', 'MTRANS_Bike', 'MTRANS_Motorbike', 'MTRANS_Public_Transportation', 'MTRANS_Walking']
   
-  # Create dictionary of one-hot encoded values
+  #Bikin OHEnya
   mtrans_encoded_dict = {col: 1 if MTRANS in col else 0 for col in mtrans_categories}
 
+  #Simpen raw data biar bisa dishow
   raw_data = {
     "Gender": Gender,
     "Age": Age,
@@ -98,12 +101,12 @@ def main():
     "MTRANS": MTRANS
   }
 
-  #display user input
+  #Display raw data (user input)
   raw_df = pd.DataFrame([raw_data])
-  st.write("### Data Input by User")
+  st.write("**Data Input by User**")
   st.dataframe(raw_df)
 
-  #convert version
+  #Simpen convert version
   user_input = [
       gender_map[Gender],
       Age,
@@ -120,27 +123,27 @@ def main():
       FAF,
       TUE,
       calc_map[CALC],
-  ] + list(mtrans_encoded_dict.values())  # Append the one-hot encoded MTRANS values
+  ] + list(mtrans_encoded_dict.values())  #Tambain one-hot encoded MTRANS
 
- # Load model and predict
+  #Load model and predict
   model_filename = 'trained_model.pkl'
   model = load_model(model_filename)
   prediction_proba = predict_with_model(model, user_input)
   
-  # **Convert Prediction to DataFrame**
+  #Convert prediction ke df
   class_labels = model.classes_
   prediction_df = pd.DataFrame(prediction_proba, columns=class_labels).round(4)  # Round values for better readability
   
-  # **Display Prediction Output**
-  st.write("### Obesity Prediction")
+  #Display prediction df
+  st.write("**Obesity Prediction**")
   st.dataframe(prediction_df)
 
   
-  # **Determine Final Prediction**
+  #Hasil akhir
   predicted_class = class_labels[prediction_proba.argmax()]
   
   # **Display Final Predicted Class**
-  st.write(f"### **The predicted obesity level is: `{predicted_class}`**")
+  st.write(f"**The predicted output is: `{predicted_class}`**")
   
 if __name__ == "__main__":
     main()
