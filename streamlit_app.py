@@ -79,7 +79,19 @@ def main():
   # Create dictionary of one-hot encoded values
   mtrans_encoded_dict = {col: 1 if MTRANS in col else 0 for col in mtrans_categories}
 
-   # Convert user inputs
+  raw_data = {
+    "Gender": Gender,
+    "Age": Age,
+    "Height": Height,
+    "Weight": Weight,
+    "family_history_with_overweight": family_history_with_overweight,
+    "FAVC": FAVC,
+    "FCVC": FCVC,
+    "NCP": NCP,
+    "CAEC": CAEC,
+    "MTRANS": MTRANS
+  }
+
   user_input = [
       gender_map[Gender],
       Age,
@@ -106,15 +118,16 @@ def main():
   # **Convert Prediction to DataFrame**
   class_labels = model.classes_
   prediction_df = pd.DataFrame(prediction_proba, columns=class_labels).round(4)  # Round values for better readability
-
+  
   # **Display User Inputs**
   st.write("### Data input by user")
-  st.dataframe(user_df)
-
+  raw_df = pd.DataFrame([raw_data])
+  st.dataframe(raw_df)
+  
   # **Display Prediction Output**
   st.write("### Obesity Prediction")
   st.dataframe(prediction_df)
-
+  
   st.write('**The prediction output is:**', prediction)
   
 if __name__ == "__main__":
