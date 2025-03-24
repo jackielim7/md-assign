@@ -8,9 +8,10 @@ def load_model(filename):
   model = joblib.load(filename)
   return model
 
+# Prediction Function
 def predict_with_model(model, user_input):
-  prediction = model.predict([user_input])
-  return prediction[0]
+  probabilities = model.predict_proba([user_input])  # Predict probabilities for all classes
+  return probabilities
 
 def main():
   st.title('Machine Learning App')  
@@ -100,8 +101,21 @@ def main():
  # Load model and predict
   model_filename = 'trained_model.pkl'
   model = load_model(model_filename)
-  prediction = predict_with_model(model, user_input)
-  st.write('**The prediction output is:**', prediction)
+  prediction_proba = predict_with_model(model, user_input)
+  
+  # **Convert Prediction to DataFrame**
+  class_labels = model.classes_
+  prediction_df = pd.DataFrame(prediction_proba, columns=class_labels).round(4)  # Round values for better readability
 
+  # **Display User Inputs**
+  st.write("### Data input by user")
+  st.dataframe(user_df)
+
+  # **Display Prediction Output**
+  st.write("### Obesity Prediction")
+  st.dataframe(prediction_df)
+
+  st.write('**The prediction output is:**', prediction)
+  
 if __name__ == "__main__":
     main()
