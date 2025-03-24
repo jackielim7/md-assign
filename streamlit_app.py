@@ -89,9 +89,21 @@ def main():
     "FCVC": FCVC,
     "NCP": NCP,
     "CAEC": CAEC,
+    "SMOKE": SMOKE,
+    "CH2O": CH2O,
+    "SCC": SCC,
+    "FAF": FAF,
+    "TUE": TUE,
+    "CALC": CALC,
     "MTRANS": MTRANS
   }
 
+  #display user input
+  raw_df = pd.DataFrame([raw_data])
+  st.write("### Data Input by User")
+  st.dataframe(raw_df)
+
+  #convert version
   user_input = [
       gender_map[Gender],
       Age,
@@ -119,16 +131,16 @@ def main():
   class_labels = model.classes_
   prediction_df = pd.DataFrame(prediction_proba, columns=class_labels).round(4)  # Round values for better readability
   
-  # **Display User Inputs**
-  st.write("### Data input by user")
-  raw_df = pd.DataFrame([raw_data])
-  st.dataframe(raw_df)
-  
   # **Display Prediction Output**
   st.write("### Obesity Prediction")
   st.dataframe(prediction_df)
+
   
-  st.write('**The prediction output is:**', prediction)
+  # **Determine Final Prediction**
+  predicted_class = class_labels[prediction_proba.argmax()]
+  
+  # **Display Final Predicted Class**
+  st.write(f"### **The predicted obesity level is: `{predicted_class}`**")
   
 if __name__ == "__main__":
     main()
