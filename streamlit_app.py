@@ -65,7 +65,42 @@ def main():
   CALC = st.selectbox('CALC', ('Always', 'Frequently', 'Sometimes', 'no'))
   MTRANS = st.selectbox('MTRANS', ('Public_Transportation', 'Automobile', 'Walking', 'Motorbike', 'Bike'))
 
+ # **Encode categorical variables**
+  gender_map = {'Male': 0, 'Female': 1}
+  binary_map = {'no': 0, 'yes': 1}
+  caec_map = {'no': 0, 'Sometimes': 1, 'Frequently': 2, 'Always': 3}
+  calc_map = {'no': 0, 'Sometimes': 1, 'Frequently': 2, 'Always': 3}
+
+  # **One-Hot Encoding for MTRANS (Matching Model's Encoding)**
+  mtrans_categories = ['MTRANS_Automobile', 'MTRANS_Bike', 'MTRANS_Motorbike', 'MTRANS_Public_Transportation', 'MTRANS_Walking']
+  
+  # Create dictionary of one-hot encoded values
+  mtrans_encoded_dict = {col: 1 if MTRANS in col else 0 for col in mtrans_categories}
+
+   # Convert user inputs
+  user_input = [
+      gender_map[Gender],
+      Age,
+      Height,
+      Weight,
+      binary_map[family_history_with_overweight],
+      binary_map[FAVC],
+      FCVC,
+      NCP,
+      caec_map[CAEC],
+      binary_map[SMOKE],
+      CH2O,
+      binary_map[SCC],
+      FAF,
+      TUE,
+      calc_map[CALC],
+  ] + list(mtrans_encoded_dict.values())  # Append the one-hot encoded MTRANS values
+
+ # Load model and predict
+  model_filename = 'trained_model.pkl'
+  model = load_model(model_filename)
+  prediction = predict_with_model(model, user_input)
+  st.write('**The prediction output is:**', prediction)
 
 if __name__ == "__main__":
-  main()
-
+    main()
