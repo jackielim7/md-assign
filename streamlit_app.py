@@ -48,7 +48,23 @@ def main():
       # Show the interactive plot
       st.plotly_chart(fig)
 
-    
+  Gender = st.selectbox('Gender', ('Male', 'Female'))
+  Age = st.slider('Age', min_value = 1, max_value = 70, value = 14)
+  Height = st.slider('Height (meters)', min_value = 1, max_value = 3, value = 1)
+  Weight = st.slider('Weight (kilograms)', min_value = 1, max_value = 3, value = 1)
+  family_history_with_overweight = st.selectbox('family_history_with_overweight', ('yes', 'no'))
+  FAVC = st.selectbox('FAVC', ('yes', 'no'))
+  FCVC = st.slider('FCVC', min_value = 1, max_value = 3, value = 1)
+  NCP = st.slider('NCP', min_value = 1, max_value = 4, value = 1)
+  CAEC = st.selectbox('CAEC', ('Always', 'Frequently', 'Sometimes', 'no'))
+  SMOKE = st.selectbox('SMOKE', ('yes', 'no'))
+  CH2O = st.slider('CH2O', min_value = 1, max_value = 3, value = 1)
+  SCC =  st.selectbox('SCC', ('yes', 'no'))
+  FAF =  st.slider('FAF', min_value = 1, max_value = 3, value = 1)
+  TUE =  st.slider('TUE', min_value = 1, max_value = 2, value = 1)
+  CALC =  st.selectbox('CALC', ('Always', 'Frequently', 'Sometimes', 'no'))
+  MTRANS =  st.selectbox('MTRANS', ('Public_Transportation', 'Automobile', 'Walking', 'Motorbike', 'Bike'))
+
 if __name__ == "__main__":
   main()
 
