@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import plotly.express as px
+import joblib #buat import pickle
 
 def load_model(filename):
   model = joblib.load(filename)
