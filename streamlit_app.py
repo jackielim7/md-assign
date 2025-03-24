@@ -61,7 +61,7 @@ def main():
   CH2O = st.number_input('CH2O', min_value=1.0, max_value=3.0, value=1.0, step=0.1) 
   SCC = st.selectbox('SCC', ('yes', 'no'))
   FAF = st.number_input('FAF', min_value=0.0, max_value=3.0, value=0.0, step=0.1)
-  TUE = st.number_input('TUE', min_value=0.000, max_value=2.000, value=0.000, step=0.001)
+  TUE = st.number_input('TUE', min_value=0.000, max_value=2.000, value=0.000, step=0.01)
   CALC = st.selectbox('CALC', ('Always', 'Frequently', 'Sometimes', 'no'))
   MTRANS = st.selectbox('MTRANS', ('Public_Transportation', 'Automobile', 'Walking', 'Motorbike', 'Bike'))
 
