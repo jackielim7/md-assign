@@ -2,14 +2,14 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import plotly.express as px
-import joblib #buat import pickle
+import joblib
 
 def load_model(filename):
   model = joblib.load(filename)
   return model
 
 def predict_with_model(model, user_input):
-  probabilities = model.predict_proba([user_input]) #predict semua kemungkinan
+  probabilities = model.predict_proba([user_input])
   return probabilities
 
 def main():
@@ -19,12 +19,12 @@ def main():
   #Read data
   df = pd.read_csv("https://raw.githubusercontent.com/jackielim7/md-assign/master/ObesityDataSet_raw_and_data_sinthetic.csv")
   
-  #Expand buat bagian raw data
+  #Expand raw data
   with st.expander("**Data**"):
       st.write("This is a raw data")
       st.dataframe(df)
 
-  #Expand buat bagian visualisasi
+  #Expand visualization
   with st.expander("**Data Visualization**"):
       #Interactive scatter plot
       fig = px.scatter(df, 
@@ -37,21 +37,18 @@ def main():
       fig.update_xaxes(range=[0, 2.1], dtick=0.1, tickangle=0)
       fig.update_yaxes(range=[0, 180], dtick=20)
 
-      #Pindahin legend ke bawah plot
+      #Legend
       fig.update_layout(legend=dict(
-          orientation="h",  #Angkanya horizontal
+          orientation="h",
           yanchor="top", 
-          y=-0.2,  #Ditaro dibawah plot
+          y=-0.2, 
           xanchor="center", 
           x=0.5
       ))
 
-      #Munculin plotnya
+      #Show plot
       st.plotly_chart(fig)
 
-  #st.number_input biar orang bisa ketik + ada koma (kalau slider ada koma agak sulit untuk user)
-  #st.slider buat slider angka
-  #st.selectbox buat pilih category
   Gender = st.selectbox('Gender', ('Male', 'Female')) 
   Age = st.slider('Age', min_value = 1, max_value = 80, value = 1)
   Height = st.number_input('Height (meters)', min_value=1.0, max_value=3.0, value=1.0, step=0.01) 
@@ -77,11 +74,9 @@ def main():
 
   #OHE
   mtrans_categories = ['MTRANS_Automobile', 'MTRANS_Bike', 'MTRANS_Motorbike', 'MTRANS_Public_Transportation', 'MTRANS_Walking']
-  
-  #Bikin OHEnya
   mtrans_encoded_dict = {col: 1 if MTRANS in col else 0 for col in mtrans_categories}
 
-  #Simpen raw data biar bisa dishow
+  #Save raw data for display
   raw_data = {
     "Gender": Gender,
     "Age": Age,
@@ -106,7 +101,7 @@ def main():
   st.write("**Data Input by User**")
   st.dataframe(raw_df)
 
-  #Simpen convert version
+  #Save encode version
   user_input = [
       gender_map[Gender],
       Age,
@@ -123,26 +118,25 @@ def main():
       FAF,
       TUE,
       calc_map[CALC],
-  ] + list(mtrans_encoded_dict.values())  #Tambain one-hot encoded MTRANS
+  ] + list(mtrans_encoded_dict.values())
 
   #Load model and predict
   model_filename = 'trained_model.pkl'
   model = load_model(model_filename)
   prediction_proba = predict_with_model(model, user_input)
   
-  #Convert prediction ke df
+  #Convert prediction into df
   class_labels = model.classes_
-  prediction_df = pd.DataFrame(prediction_proba, columns=class_labels).round(4)  # Round values for better readability
+  prediction_df = pd.DataFrame(prediction_proba, columns=class_labels).round(4)  #Round values for better readability
   
   #Display prediction df
   st.write("**Obesity Prediction**")
   st.dataframe(prediction_df)
 
-  
-  #Hasil akhir
+  #Final
   predicted_class = class_labels[prediction_proba.argmax()]
   
-  # **Display Final Predicted Class**
+  #Display Final Predicted Class
   st.write(f"**The predicted output is: `{predicted_class}`**")
   
 if __name__ == "__main__":
